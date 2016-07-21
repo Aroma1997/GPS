@@ -1,0 +1,12 @@
+[
+{
+  "modid": "GPS",
+  "name": "GPS",
+  "description": "This is a small GPS mod. It adds a GPS to the game showing you the position of other players.",
+  "mcversion": "${mcversion}",
+  "version": "${version}",
+  "url": "http://www.minecraftforum.net/topic/1679684-",
+  "authors": ["RichardG", "Aroma1997"],
+  "credits": "Original code by RichardG, updated by Aroma1997"
+}
+]
