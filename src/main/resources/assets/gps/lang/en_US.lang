@@ -1,17 +1,17 @@
-#Creative tab
-itemGroup.gps:gps = GPS Mod
+#CreativeTab
+itemGroup.gps:gps=GPS Mod
 
 #Items
-item.gps:gps_off.name = GPS
-item.gps:gps_idle.name = GPS
-item.gps:gps_on.name = GPS
-item.gps:gps_supercharged.name = GPS
+item.gps:gps_off.name=GPS
+item.gps:gps_idle.name=GPS
+item.gps:gps_on.name=GPS
+item.gps:gps_supercharged.name=GPS
 
-GPS:gps.mode.OFF = OFF
-GPS:gps.mode.IDLE = IDLE
-GPS:gps.mode.ON = ON
-GPS:gps.mode.SUPERCHARGED = SUPERCHARGED
+GPS:gps.mode.OFF=OFF
+GPS:gps.mode.IDLE=IDLE
+GPS:gps.mode.ON=ON
+GPS:gps.mode.SUPERCHARGED=SUPERCHARGED
 
-GPS:gps.switch = New mode: %s
+GPS:gps.switch=New mode: %s
 
-GPS:gps.hud.noplayers = No players visible
+GPS:gps.hud.noplayers=No players visible
