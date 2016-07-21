@@ -65,8 +65,10 @@ public class ServerProxy {
 	}
 
 	public String getDimensionName(int dim) {
-		DimensionType type = DimensionManager.getProviderType(dim);
-		if (type != null) return type.getName();
+		try {
+			DimensionType type = DimensionManager.getProviderType(dim);
+			if (type != null) return type.getName();
+		} catch (IllegalArgumentException e) {}
 		return "Dim "+dim;
 	}
 }
