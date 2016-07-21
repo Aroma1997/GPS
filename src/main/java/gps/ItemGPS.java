@@ -38,7 +38,7 @@ public class ItemGPS extends AromicItem {
     {
 		if (world.isRemote) return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
 
-		Mode next = getMode(stack).cycle(stack);
+		Mode next = getMode(stack).cycle(stack, player);
 		setMode(next, stack);
 
 		String s = I18n.translateToLocalFormatted(Reference.MOD_ID + ":gps.switch", next.formatting + I18n.translateToLocal(Reference.MOD_ID + ":gps.mode." + next.name()));
@@ -119,8 +119,8 @@ public class ItemGPS extends AromicItem {
 			this.formatting = formatting;
 		}
 
-		public Mode cycle(ItemStack stack) {
-			if (this == ON) return OFF;
+		public Mode cycle(ItemStack stack, EntityPlayer player) {
+			if (this == ON && !player.capabilities.isCreativeMode) return OFF;
 			return VALUES[(ordinal() + 1) % VALUES.length];
 		}
 	}
