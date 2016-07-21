@@ -25,7 +25,7 @@ public class GpsPacket implements IMessage,
 		for (EntityPlayer player : server.getPlayerList().getPlayerList()) {
 			if (player == target) continue;
 			if (ItemGPS.shouldShowOnGPS(target, player)) {
-				dataList.add(new PlayerData(player.getName(), player.worldObj.provider.getDimension(), player.getPosition()));
+				dataList.add(new PlayerData(player.getDisplayNameString(), player.worldObj.provider.getDimension(), player.getPosition()));
 			}
 		}
 	}
