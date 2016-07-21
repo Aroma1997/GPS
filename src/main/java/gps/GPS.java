@@ -18,7 +18,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 
-@Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME)
+@Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, dependencies = "required-after:Aroma1997Core")
 public class GPS {
 	@SidedProxy(clientSide = "gps.ClientProxy", serverSide = "gps.ServerProxy")
 	public static ServerProxy proxy;
