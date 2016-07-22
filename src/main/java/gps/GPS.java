@@ -28,7 +28,7 @@ public class GPS {
 	public static Item gps;
 	public static PacketHandler ph;
 
-	public static int updatesPerTick = 1;
+	public static int updatesPerTick = 5;
 
 	@EventHandler
 	public void onLoad(FMLPreInitializationEvent event) {
