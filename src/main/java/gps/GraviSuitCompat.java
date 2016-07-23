@@ -1,3 +1,9 @@
+/**
+ * The code of the GPS mod and all related materials like textures is licensed under the
+ * GNU GENERAL PUBLIC LICENSE Version 3.
+ *
+ * See https://github.com/Aroma1997/GPS/blob/master/license.txt for more information.
+ */
 package gps;
 
 import java.lang.reflect.Field;
@@ -7,7 +13,7 @@ public class GraviSuitCompat {
 	private static Class graviSuite = null;
 	private static Field hudPos = null;
 	private static int prevHudPos = 1;
-	
+
 	public static void init() {
 		try {
 			graviSuite = Class.forName("gravisuite.GraviSuite");
@@ -16,7 +22,7 @@ public class GraviSuitCompat {
 			graviSuitEnabled = true;
 		} catch (Throwable e) {}
 	}
-	
+
 	public static void toggleHudPos(boolean displaying) {
 		if (prevHudPos == 2 || prevHudPos == 4) return;
 		try {
