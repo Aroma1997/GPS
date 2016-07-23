@@ -7,6 +7,7 @@
 package gps;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -44,7 +45,9 @@ public class GpsPacket implements IMessage,
 	public IMessage onMessage(GpsPacket message, MessageContext ctx) {
 		if (ctx.side == Side.CLIENT) {
 			ClientProxy proxy = (ClientProxy) GPS.proxy;
-			proxy.dataList = message.dataList;
+			List<PlayerData> data = message.dataList;
+			Collections.sort(data, proxy.playerDatComparator);
+			proxy.dataList = data;
 		}
 		else {
 			LogHelper.log(Level.ERROR, "Received GPS message on the server. Aborting.");
@@ -80,7 +83,7 @@ public class GpsPacket implements IMessage,
 		return new PlayerData(username, dimension, pos);
 	}
 
-	public void writePlayerData(PlayerData data, ByteBuf buf) {
+	private void writePlayerData(PlayerData data, ByteBuf buf) {
 		buf.writeByte(data.username.length());
 		for (int i = 0; i < data.username.length(); i++) {
 			buf.writeChar(data.username.charAt(i));
