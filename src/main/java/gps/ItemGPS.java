@@ -28,6 +28,7 @@ public class ItemGPS extends AromicItem {
 		super();
 		setUnlocalizedName(Reference.MOD_ID.toLowerCase() + ":gps");
 		setMaxDamage(0);
+		setMaxStackSize(1);
 		setCreativeTab(GPS.tabGPS);
 	}
 
@@ -83,9 +84,15 @@ public class ItemGPS extends AromicItem {
 		if (gps == null) return false;
 		Mode mode = getMode(gps);
 
-		return mode == Mode.ON || mode == Mode.SUPERCHARGED;
+		return mode.isOn;
 	}
 
+	/**
+	 * Wether the second player should be shown on the firs player's GPS.
+	 * @param a the first player
+	 * @param b the second player
+	 * @return true, if the second player should be shown on the firs player's GPS. false otherwise.
+	 */
 	public static boolean shouldShowOnGPS(EntityPlayer a, EntityPlayer b) {
 		ItemStack gpsA = getGPS(a.inventory);
 		if (gpsA == null) return false;
@@ -112,17 +119,19 @@ public class ItemGPS extends AromicItem {
 	}
 
 	public static enum Mode {
-		OFF(TextFormatting.RED),
-		IDLE(TextFormatting.YELLOW),
-		ON(TextFormatting.GREEN),
-		SUPERCHARGED(TextFormatting.GREEN);
+		OFF(TextFormatting.RED, false),
+		IDLE(TextFormatting.YELLOW, false),
+		ON(TextFormatting.GREEN, true),
+		SUPERCHARGED(TextFormatting.GREEN, true);
 
 		public static Mode[] VALUES = values();
 
 		private final TextFormatting formatting;
+		public final boolean isOn;
 
-		private Mode(TextFormatting formatting) {
+		private Mode(TextFormatting formatting, boolean isOn) {
 			this.formatting = formatting;
+			this.isOn = isOn;
 		}
 
 		public Mode cycle(ItemStack stack, EntityPlayer player) {

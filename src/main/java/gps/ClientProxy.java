@@ -89,7 +89,7 @@ public class ClientProxy extends ServerProxy {
 
 			ItemStack selected = mc.thePlayer.getHeldItemMainhand();
 			Mode mode = ItemGPS.getMode(selected);
-//			if ((!displaying && !(ItemGPS.isGPSEnabled(mc.thePlayer))) || !mc.inGameHasFocus || mc.theWorld == null || mc.gameSettings.showDebugInfo || (mc.gameSettings.keyBindPlayerList.isKeyDown() && (!mc.isIntegratedServerRunning() || mc.thePlayer.connection.getPlayerInfoMap().size() > 1))) return;
+			if ((!displaying && !(ItemGPS.isGPSEnabled(mc.thePlayer))) || !mc.inGameHasFocus || mc.theWorld == null || mc.gameSettings.showDebugInfo || (mc.gameSettings.keyBindPlayerList.isKeyDown() && (!mc.isIntegratedServerRunning() || mc.thePlayer.connection.getPlayerInfoMap().size() > 1))) return;
 
 			int h = new ScaledResolution(mc).getScaledHeight();
 

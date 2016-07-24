@@ -29,6 +29,7 @@ public class GpsPacket implements IMessage,
 
 	public GpsPacket(EntityPlayer target, MinecraftServer server) {
 		dataList = new LinkedList<PlayerData>();
+//		dataList.add(new PlayerData("Origin", 0, BlockPos.ORIGIN));
 		for (EntityPlayer player : server.getPlayerList().getPlayerList()) {
 			if (player == target) continue;
 			if (ItemGPS.shouldShowOnGPS(target, player)) {

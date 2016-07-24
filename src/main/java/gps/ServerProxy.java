@@ -54,7 +54,7 @@ public class ServerProxy {
 					player = manager.getPlayerList().get(currentPlayer);
 				}
 
-				if (player == null) break;
+				if (player == null || currentPlayer == -1) break;
 
 				GpsPacket packet = new GpsPacket(player, server);
 				GPS.ph.sendPacketToPlayer(player, packet);
