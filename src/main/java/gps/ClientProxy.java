@@ -40,7 +40,7 @@ public class ClientProxy extends ServerProxy {
 	private ItemStack compass;
 	public List<PlayerData> dataList = new ArrayList<PlayerData>();
 	private KeyBinding kb;
-	private boolean displaying = false;
+	private boolean displaying = true;
 	public final Comparator<PlayerData> playerDatComparator;
 
 	public ClientProxy() {
@@ -89,7 +89,7 @@ public class ClientProxy extends ServerProxy {
 
 			ItemStack selected = mc.thePlayer.getHeldItemMainhand();
 			Mode mode = ItemGPS.getMode(selected);
-			if ((!displaying && !(ItemGPS.isGPSEnabled(mc.thePlayer))) || !mc.inGameHasFocus || mc.theWorld == null || mc.gameSettings.showDebugInfo || (mc.gameSettings.keyBindPlayerList.isKeyDown() && (!mc.isIntegratedServerRunning() || mc.thePlayer.connection.getPlayerInfoMap().size() > 1))) return;
+			if ((!displaying || !(ItemGPS.isGPSEnabled(mc.thePlayer))) || !mc.inGameHasFocus || mc.theWorld == null || mc.gameSettings.showDebugInfo || (mc.gameSettings.keyBindPlayerList.isKeyDown() && (!mc.isIntegratedServerRunning() || mc.thePlayer.connection.getPlayerInfoMap().size() > 1))) return;
 
 			int h = new ScaledResolution(mc).getScaledHeight();
 
@@ -140,6 +140,8 @@ public class ClientProxy extends ServerProxy {
 	}
 
 	private void toggleDisplay() {
+		//Do not toggle display if the GPS is disabled.
+		if (!(ItemGPS.isGPSEnabled(mc.thePlayer))) return;
 		displaying = !displaying;
 		if (GraviSuitCompat.graviSuitEnabled) GraviSuitCompat.toggleHudPos(displaying);
 	}
