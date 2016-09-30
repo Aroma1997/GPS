@@ -6,13 +6,14 @@
  */
 package gps;
 
+import aroma1997.core.item.AromicCreativeTab;
 import aroma1997.core.network.NetworkHelper;
 import aroma1997.core.network.PacketHandler;
 import aroma1997.core.util.AromaRegistry;
 import aroma1997.core.util.registry.AutoRegister;
 
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import net.minecraftforge.common.config.Configuration;
@@ -20,7 +21,6 @@ import net.minecraftforge.common.config.Property;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 
@@ -29,10 +29,11 @@ public class GPS {
 	@SidedProxy(clientSide = "gps.ClientProxy", serverSide = "gps.ServerProxy")
 	public static ServerProxy proxy;
 
-	public static CreativeTabGPS tabGPS = new CreativeTabGPS();
 	@AutoRegister
-	public static Item gps;
+	public static ItemGPS gps;
 	public static PacketHandler ph;
+
+	public static CreativeTabs tabGPS = new AromicCreativeTab(Reference.MOD_ID.toLowerCase() + ":gps", () -> new ItemStack(gps, 1, ItemGPS.Mode.ON.ordinal()));
 
 	public static int updatesPerTick = 5;
 
@@ -53,12 +54,7 @@ public class GPS {
 
 		config.save();
 
-		AromaRegistry.registerShapedAromicRecipe(new ItemStack(gps), false, "RRR", "@I#", "RRR", 'R', Items.REDSTONE, 'I', Items.IRON_INGOT, '@', Items.CLOCK, '#', Items.COMPASS);
-		AromaRegistry.registerShapelessAromicRecipe(new ItemStack(gps, 1, ItemGPS.Mode.SUPERCHARGED.ordinal()), false, gps, Items.REDSTONE);
-	}
-
-	@EventHandler
-	public void onLoaded(FMLPostInitializationEvent event) {
-		GraviSuitCompat.init();
+		AromaRegistry.registerShapedRecipe(new ItemStack(gps), "RRR", "@I#", "RRR", 'R', Items.REDSTONE, 'I', Items.IRON_INGOT, '@', Items.CLOCK, '#', Items.COMPASS);
+		AromaRegistry.registerShapelessRecipe(new ItemStack(gps, 1, ItemGPS.Mode.SUPERCHARGED.ordinal()), gps, Items.REDSTONE);
 	}
 }

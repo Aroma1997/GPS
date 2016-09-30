@@ -6,7 +6,6 @@
  */
 package gps;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -88,8 +87,8 @@ public class ClientProxy extends ServerProxy {
 			if (mc.thePlayer == null) return;
 
 			ItemStack selected = mc.thePlayer.getHeldItemMainhand();
-			Mode mode = ItemGPS.getMode(selected);
-			if ((!displaying || !(ItemGPS.isGPSEnabled(mc.thePlayer))) || !mc.inGameHasFocus || mc.theWorld == null || mc.gameSettings.showDebugInfo || (mc.gameSettings.keyBindPlayerList.isKeyDown() && (!mc.isIntegratedServerRunning() || mc.thePlayer.connection.getPlayerInfoMap().size() > 1))) return;
+			Mode mode = GPS.gps.getType(selected);
+			if ((!displaying || !(GPS.gps.isGPSEnabled(mc.thePlayer))) || !mc.inGameHasFocus || mc.theWorld == null || mc.gameSettings.showDebugInfo || (mc.gameSettings.keyBindPlayerList.isKeyDown() && (!mc.isIntegratedServerRunning() || mc.thePlayer.connection.getPlayerInfoMap().size() > 1))) return;
 
 			int h = new ScaledResolution(mc).getScaledHeight();
 
@@ -134,15 +133,9 @@ public class ClientProxy extends ServerProxy {
 		}
 	}
 
-	@Override
-	public File getMinecraftDir() {
-		return Minecraft.getMinecraft().mcDataDir;
-	}
-
 	private void toggleDisplay() {
 		//Do not toggle display if the GPS is disabled.
-		if (!(ItemGPS.isGPSEnabled(mc.thePlayer))) return;
+		if (!(GPS.gps.isGPSEnabled(mc.thePlayer))) return;
 		displaying = !displaying;
-		if (GraviSuitCompat.graviSuitEnabled) GraviSuitCompat.toggleHudPos(displaying);
 	}
 }

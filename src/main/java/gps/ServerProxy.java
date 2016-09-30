@@ -6,8 +6,6 @@
  */
 package gps;
 
-import java.io.File;
-
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.management.PlayerList;
@@ -44,7 +42,7 @@ public class ServerProxy {
 				if (manager.getCurrentPlayerCount() < 1) break;
 
 				EntityPlayerMP player = null;
-				while (player == null || !ItemGPS.isGPSEnabled(player)) {
+				while (player == null || !GPS.gps.isGPSEnabled(player)) {
 					currentPlayer++;
 					if (currentPlayer >= manager.getCurrentPlayerCount()) {
 						currentPlayer = -1;
@@ -60,14 +58,6 @@ public class ServerProxy {
 				GPS.ph.sendPacketToPlayer(player, packet);
 			}
 		}
-	}
-
-	public File getMinecraftDir() {
-		return new File(".");
-	}
-
-	public int addArmor(String file) {
-		return 0;
 	}
 
 	public String getDimensionName(int dim) {
