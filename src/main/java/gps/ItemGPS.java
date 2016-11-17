@@ -33,8 +33,8 @@ public class ItemGPS extends AromicItemMulti<Mode> {
 	// --> Item
 
 	@Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand)
-    {
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+		ItemStack stack = player.getHeldItem(hand);
 		if (world.isRemote) return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
 
 		Mode next = getType(stack).cycle(stack, player);
@@ -55,10 +55,11 @@ public class ItemGPS extends AromicItemMulti<Mode> {
 	//<--- Item
 
 	public ItemStack getGPS(InventoryPlayer inv) {
-		for (int i = 0; i < inv.mainInventory.length; i++) {
-			if (inv.mainInventory[i] != null && inv.mainInventory[i].getItem() == GPS.gps) return inv.mainInventory[i];
+		for (ItemStack currentStack : inv.mainInventory) {
+			if (!currentStack.func_190926_b() && currentStack.getItem() == this) {
+				return currentStack;
+			}
 		}
-
 		return null;
 	}
 
