@@ -1,7 +1,7 @@
 {
 	"parent": "builtin/generated",
 	"textures": {
-		"layer0": "gps:items/gps_supercharged"
+		"layer0": "gps:items/gps.on"
 	},
 	"display": {
 		"thirdperson": {

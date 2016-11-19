@@ -24,7 +24,7 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 
-@Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, dependencies = "required-after:Aroma1997Core")
+@Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, dependencies = "required-after:aroma1997core")
 public class GPS {
 	@SidedProxy(clientSide = "gps.ClientProxy", serverSide = "gps.ServerProxy")
 	public static ServerProxy proxy;
@@ -33,7 +33,7 @@ public class GPS {
 	public static ItemGPS gps;
 	public static PacketHandler ph;
 
-	public static CreativeTabs tabGPS = new AromicCreativeTab(Reference.MOD_ID.toLowerCase() + ":gps", () -> new ItemStack(gps, 1, ItemGPS.Mode.ON.ordinal()));
+	public static CreativeTabs tabGPS = new AromicCreativeTab(Reference.MOD_ID + ":gps", () -> new ItemStack(gps, 1, ItemGPS.Mode.on.ordinal()));
 
 	public static int updatesPerTick = 5;
 
@@ -55,6 +55,6 @@ public class GPS {
 		config.save();
 
 		AromaRegistry.registerShapedRecipe(new ItemStack(gps), "RRR", "@I#", "RRR", 'R', Items.REDSTONE, 'I', Items.IRON_INGOT, '@', Items.CLOCK, '#', Items.COMPASS);
-		AromaRegistry.registerShapelessRecipe(new ItemStack(gps, 1, ItemGPS.Mode.SUPERCHARGED.ordinal()), gps, Items.REDSTONE);
+		AromaRegistry.registerShapelessRecipe(new ItemStack(gps, 1, ItemGPS.Mode.supercharged.ordinal()), gps, Items.REDSTONE);
 	}
 }

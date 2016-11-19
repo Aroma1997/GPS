@@ -81,13 +81,13 @@ public class ItemGPS extends AromicItemMulti<Mode> {
 		ItemStack gpsA = getGPS(a.inventory);
 		if (gpsA == null) return false;
 		Mode modeA = getType(gpsA);
-		if (modeA == Mode.SUPERCHARGED) {
+		if (modeA == Mode.supercharged) {
 			return true;
 		}
 		ItemStack gpsB = getGPS(b.inventory);
 		if (gpsB == null) return false;
 		Mode modeB = getType(gpsB);
-		return modeB != Mode.OFF;
+		return modeB != Mode.off;
 	}
 
 	public void setMode(Mode mode, ItemStack stack) {
@@ -95,10 +95,10 @@ public class ItemGPS extends AromicItemMulti<Mode> {
 	}
 
 	public static enum Mode {
-		OFF(TextFormatting.RED, false),
-		IDLE(TextFormatting.YELLOW, false),
-		ON(TextFormatting.GREEN, true),
-		SUPERCHARGED(TextFormatting.GREEN, true);
+		off(TextFormatting.RED, false),
+		idle(TextFormatting.YELLOW, false),
+		on(TextFormatting.GREEN, true),
+		supercharged(TextFormatting.GREEN, true);
 
 		public static Mode[] VALUES = values();
 
@@ -111,7 +111,7 @@ public class ItemGPS extends AromicItemMulti<Mode> {
 		}
 
 		public Mode cycle(ItemStack stack, EntityPlayer player) {
-			if (this == ON && !player.capabilities.isCreativeMode) return OFF;
+			if (this == on && !player.capabilities.isCreativeMode) return off;
 			return VALUES[(ordinal() + 1) % VALUES.length];
 		}
 	}

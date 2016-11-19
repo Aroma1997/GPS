@@ -26,8 +26,8 @@ public class Reference {
 		VERSION = prop.getProperty("version");
 	}
 
-	public static final String MOD_ID = "GPS";
-	public static final String MOD_NAME = MOD_ID;
+	public static final String MOD_ID = "gps";
+	public static final String MOD_NAME = "GPS";
 	public static final String VERSION;
 
 }
