@@ -93,7 +93,7 @@ public class ClientProxy extends ServerProxy {
 			int h = new ScaledResolution(mc).getScaledHeight();
 
 			if (dataList.isEmpty()) {
-				mc.fontRendererObj.drawStringWithShadow(I18n.translateToLocal("GPS:gps.hud.noplayers"), 2, 2, 0x00FFFFFF);
+				mc.fontRendererObj.drawStringWithShadow(I18n.translateToLocal("gps:gps.hud.noplayers"), 2, 2, 0x00FFFFFF);
 			} else {
 				int y = 2;
 
