@@ -15,6 +15,7 @@ import gps.trilaterate.ItemTrilaterate;
 import gps.trilaterate.PacketTrilaterate;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
@@ -70,6 +71,7 @@ public class GPS {
 	public void init(FMLInitializationEvent event) {
 		AromaRegistry.registerShapedRecipe(new ItemStack(gps), "RRR", "@I#", "RRR", 'R', Items.REDSTONE, 'I', Items.IRON_INGOT, '@', Items.CLOCK, '#', Items.COMPASS);
 		AromaRegistry.registerShapelessRecipe(new ItemStack(gps, 1, ItemGPS.Mode.supercharged.ordinal()), gps, Items.REDSTONE);
+		AromaRegistry.registerShapedRecipe(new ItemStack(trilaterate), "RIR", "PCP", 'R', Items.REDSTONE, 'I', new ItemStack(Items.DYE, 1, EnumDyeColor.BLACK.getDyeDamage()), 'P', Items.PAPER, 'C', Items.COMPASS);
 		
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, proxy);
 	}
