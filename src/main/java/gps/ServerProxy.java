@@ -49,7 +49,7 @@ public class ServerProxy {
 						break;
 					}
 
-					player = manager.getPlayerList().get(currentPlayer);
+					player = manager.getPlayers().get(currentPlayer);
 				}
 
 				if (player == null || currentPlayer == -1) break;

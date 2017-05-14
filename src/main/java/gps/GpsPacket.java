@@ -30,10 +30,10 @@ public class GpsPacket implements IMessage,
 	public GpsPacket(EntityPlayer target, MinecraftServer server) {
 		dataList = new LinkedList<PlayerData>();
 //		dataList.add(new PlayerData("Origin", 0, BlockPos.ORIGIN));
-		for (EntityPlayer player : server.getPlayerList().getPlayerList()) {
+		for (EntityPlayer player : server.getPlayerList().getPlayers()) {
 			if (player == target) continue;
 			if (GPS.gps.shouldShowOnGPS(target, player)) {
-				dataList.add(new PlayerData(player.getDisplayNameString(), player.worldObj.provider.getDimension(), player.getPosition()));
+				dataList.add(new PlayerData(player.getDisplayNameString(), player.world.provider.getDimension(), player.getPosition()));
 			}
 		}
 	}

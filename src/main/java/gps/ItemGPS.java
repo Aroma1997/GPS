@@ -9,9 +9,9 @@ package gps;
 import java.util.List;
 
 import aroma1997.core.item.AromicItemMulti;
+import aroma1997.core.util.LocalizationHelper;
 import aroma1997.core.util.ServerUtil;
 import gps.ItemGPS.Mode;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
@@ -19,7 +19,6 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 
 public class ItemGPS extends AromicItemMulti<Mode> {
@@ -40,8 +39,8 @@ public class ItemGPS extends AromicItemMulti<Mode> {
 		Mode next = getType(stack).cycle(stack, player);
 		setMode(next, stack);
 
-		String s = I18n.translateToLocalFormatted(Reference.MOD_ID + ":gps.switch", next.formatting + I18n.translateToLocal(Reference.MOD_ID + ":gps.mode." + next.name()));
-		player.addChatMessage(ServerUtil.getChatForString(s));
+		String s = LocalizationHelper.localizeFormatted(Reference.MOD_ID + ":gps.switch", next.formatting + LocalizationHelper.localize(Reference.MOD_ID + ":gps.mode." + next.name()));
+		player.sendMessage(ServerUtil.getChatForString(s));
 
 		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
 	}
@@ -49,14 +48,14 @@ public class ItemGPS extends AromicItemMulti<Mode> {
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List info, boolean debug) {
 		Mode m = getType(stack);
-		info.add(m.formatting + I18n.translateToLocal(Reference.MOD_ID + ":gps.mode." + m.name()));
+		info.add(m.formatting + LocalizationHelper.localize(Reference.MOD_ID + ":gps.mode." + m.name()));
 	}
 
 	//<--- Item
 
 	public ItemStack getGPS(InventoryPlayer inv) {
 		for (ItemStack currentStack : inv.mainInventory) {
-			if (!currentStack.func_190926_b() && currentStack.getItem() == this) {
+			if (!currentStack.isEmpty() && currentStack.getItem() == this) {
 				return currentStack;
 			}
 		}
