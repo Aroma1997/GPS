@@ -28,7 +28,7 @@ public class GuiTrilaterate extends GuiScreen {
     	}
     	
     	for (String additional : GPS.trilaterate.additionalPositions.keySet()) {
-    		players.add(new Tuple<String, String>(additional, getDisplayName(additional)));
+    		players.add(new Tuple<String, String>(additional, ItemTrilaterate.getDisplayName(additional)));
     	}
     	
     	Collections.sort(players, (tuple1, tuple2) -> tuple1.getFirst().compareTo(tuple2.getFirst()));
@@ -67,13 +67,6 @@ public class GuiTrilaterate extends GuiScreen {
 		PacketTrilaterate packet = new PacketTrilaterate();
 		packet.playerName = players.get(id).getFirst();
 		GPS.ph.sendPacketToPlayers(packet);
-	}
-	
-	public static String getDisplayName(String internalName) {
-		if (LocalizationHelper.hasLocalization("gps:trilaterate.gui.additionals." + internalName)) {
-			return LocalizationHelper.localize("gps:trilaterate.gui.additionals." + internalName);
-		}
-		return internalName;
 	}
 
 }
