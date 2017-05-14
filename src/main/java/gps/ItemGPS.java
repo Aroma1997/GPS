@@ -71,10 +71,10 @@ public class ItemGPS extends AromicItemMulti<Mode> {
 	}
 
 	/**
-	 * Wether the second player should be shown on the firs player's GPS.
+	 * Whether the second player should be shown on the first player's GPS.
 	 * @param a the first player
 	 * @param b the second player
-	 * @return true, if the second player should be shown on the firs player's GPS. false otherwise.
+	 * @return true, if the second player should be shown on the first player's GPS. false otherwise.
 	 */
 	public boolean shouldShowOnGPS(EntityPlayer a, EntityPlayer b) {
 		ItemStack gpsA = getGPS(a.inventory);

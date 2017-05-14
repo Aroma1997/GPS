@@ -6,19 +6,21 @@
  */
 package gps;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.management.PlayerList;
 import net.minecraft.world.DimensionType;
-
+import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
+import net.minecraftforge.fml.common.network.IGuiHandler;
 
-public class ServerProxy {
+public class ServerProxy implements IGuiHandler {
 	public int ticker = 0;
 	private int currentPlayer = 0;
 
@@ -66,5 +68,17 @@ public class ServerProxy {
 			if (type != null) return type.getName();
 		} catch (IllegalArgumentException e) {}
 		return "Dim "+dim;
+	}
+
+	@Override
+	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+		assert false;
+		return null;
+	}
+
+	@Override
+	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+		assert false;
+		return null;
 	}
 }

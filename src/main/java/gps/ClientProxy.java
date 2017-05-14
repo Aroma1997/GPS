@@ -14,15 +14,18 @@ import org.lwjgl.input.Keyboard;
 
 import aroma1997.core.util.LocalizationHelper;
 import gps.ItemGPS.Mode;
+import gps.trilaterate.GuiTrilaterate;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
@@ -59,7 +62,7 @@ public class ClientProxy extends ServerProxy {
 						//If the first player hast the same dimension as the client player, the second one does, too,
 						//because otherwise comp would be set to 0.
 						//Sort by distance.
-						comp = Double.compare(player.getDistanceSq(o1.pos), player.getDistanceSq(o2.pos));
+						comp = Double.compare(o1.getDistance(player.getPosition()), o2.getDistance(player.getPosition()));
 					}
 					if (comp == 0) {
 						//Sort by username.
@@ -97,7 +100,7 @@ public class ClientProxy extends ServerProxy {
 				int y = 2;
 
 				for (PlayerData data : dataList) {
-					mc.fontRendererObj.drawStringWithShadow(data.username+": "+(data.dimension == mc.player.dimension ? Math.round(Math.sqrt(mc.player.getDistanceSq(data.pos)))+"m" : "@ "+GPS.proxy.getDimensionName(data.dimension)), 2, y, 0x00FFFFFF);
+					mc.fontRendererObj.drawStringWithShadow(data.username+": "+(data.dimension == mc.player.dimension ? Math.round(Math.sqrt(data.getDistance(mc.player.getPosition())))+"m" : "@ "+GPS.proxy.getDimensionName(data.dimension)), 2, y, 0x00FFFFFF);
 					y += 10;
 					if (y + 35 >= h) {
 						//Complete screen is filled.
@@ -136,5 +139,16 @@ public class ClientProxy extends ServerProxy {
 		//Do not toggle display if the GPS is disabled.
 		if (!(GPS.gps.isGPSEnabled(mc.player))) return;
 		displaying = !displaying;
+	}
+	
+	@Override
+	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+		switch(ID) {
+		case 0:
+			return new GuiTrilaterate();
+		default:
+			assert false;
+			return null;
+		}
 	}
 }

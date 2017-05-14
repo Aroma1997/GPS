@@ -11,26 +11,35 @@ import aroma1997.core.network.NetworkHelper;
 import aroma1997.core.network.PacketHandler;
 import aroma1997.core.util.AromaRegistry;
 import aroma1997.core.util.registry.AutoRegister;
-
+import gps.trilaterate.ItemTrilaterate;
+import gps.trilaterate.PacketTrilaterate;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
+import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, dependencies = "required-after:aroma1997core")
 public class GPS {
+	
+	@Instance
+	public static GPS instance;
+	
 	@SidedProxy(clientSide = "gps.ClientProxy", serverSide = "gps.ServerProxy")
 	public static ServerProxy proxy;
 
 	@AutoRegister
 	public static ItemGPS gps;
+	@AutoRegister
+	public static ItemTrilaterate trilaterate;
 	public static PacketHandler ph;
 
 	public static CreativeTabs tabGPS = new AromicCreativeTab(Reference.MOD_ID + ":gps", () -> new ItemStack(gps, 1, ItemGPS.Mode.on.ordinal()));
@@ -41,6 +50,7 @@ public class GPS {
 	public void onLoad(FMLPreInitializationEvent event) {
 		ph = NetworkHelper.getPacketHandler(Reference.MOD_ID);
 		ph.registerMessage(GpsPacket.class, GpsPacket.class, 0, Side.CLIENT);
+		ph.registerMessage(PacketTrilaterate.class, PacketTrilaterate.class, 1, Side.SERVER);
 		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
 		Property prop;
 
@@ -50,11 +60,17 @@ public class GPS {
 		if (updatesPerTick <= 0) updatesPerTick = 1;
 
 		gps = new ItemGPS();
+		trilaterate = new ItemTrilaterate();
 		AromaRegistry.register(getClass());
 
 		config.save();
-
+	}
+	
+	@EventHandler
+	public void init(FMLInitializationEvent event) {
 		AromaRegistry.registerShapedRecipe(new ItemStack(gps), "RRR", "@I#", "RRR", 'R', Items.REDSTONE, 'I', Items.IRON_INGOT, '@', Items.CLOCK, '#', Items.COMPASS);
 		AromaRegistry.registerShapelessRecipe(new ItemStack(gps, 1, ItemGPS.Mode.supercharged.ordinal()), gps, Items.REDSTONE);
+		
+		NetworkRegistry.INSTANCE.registerGuiHandler(this, proxy);
 	}
 }
