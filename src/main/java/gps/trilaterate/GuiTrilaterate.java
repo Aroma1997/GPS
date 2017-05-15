@@ -6,32 +6,36 @@ import java.util.Collections;
 import java.util.List;
 
 import aroma1997.core.util.LocalizationHelper;
+import gps.ClientProxy;
 import gps.GPS;
+import gps.PlayerData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.network.NetworkPlayerInfo;
-import net.minecraft.util.Tuple;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class GuiTrilaterate extends GuiScreen {
 	
-	private final List<Tuple<String, String>> players;
+	private final List<String> players;
 
 	public GuiTrilaterate() {
     	players = new ArrayList<>();
-    	for (NetworkPlayerInfo info : Minecraft.getMinecraft().player.connection.getPlayerInfoMap()) {
-    		String name = info.getGameProfile().getName();
-    		players.add(new Tuple<String, String>(name, name));
+    	for (PlayerData data : ((ClientProxy)GPS.proxy).dataList) {
+    		if (data.dimension != Minecraft.getMinecraft().player.dimension) {
+    			//The PlayerData List is sorted, so once we reached the first one from another dimension,
+    			//The rest will be in a different dimension as well.
+    			break;
+    		}
+    		players.add(data.username);
     	}
     	
     	for (String additional : GPS.trilaterate.additionalPositions.keySet()) {
-    		players.add(new Tuple<String, String>(additional, ItemTrilaterate.getDisplayName(additional)));
+    		players.add(additional);
     	}
     	
-    	Collections.sort(players, (tuple1, tuple2) -> tuple1.getFirst().compareTo(tuple2.getFirst()));
+    	Collections.sort(players, (a, b) -> a.startsWith("_") ? b.startsWith("_") ? a.compareTo(b) : 1 : b.startsWith("_") ? -1 : a.compareTo(b));
 	}
 	
     @Override
@@ -47,7 +51,7 @@ public class GuiTrilaterate extends GuiScreen {
     	addButton(new GuiButton(-1, xStart, yStart, BUTTON_WIDTH, BUTTON_HEIGHT, LocalizationHelper.localize("gps:trilaterate.gui.start")));
     	
     	for (int i = 0; i < players.size(); i++) {
-    		addButton(new GuiButton(i, xStart, yStart + 2 * BUTTON_HEIGHT + i * 20, BUTTON_WIDTH, BUTTON_HEIGHT, players.get(i).getSecond()));
+    		addButton(new GuiButton(i, xStart, yStart + 2 * BUTTON_HEIGHT + i * 20, BUTTON_WIDTH, BUTTON_HEIGHT, ItemTrilaterate.getDisplayName(players.get(i))));
     	}
     	
     }
@@ -65,7 +69,7 @@ public class GuiTrilaterate extends GuiScreen {
 	
 	private void selectPlayer(int id) {
 		PacketTrilaterate packet = new PacketTrilaterate();
-		packet.playerName = players.get(id).getFirst();
+		packet.playerName = players.get(id);
 		GPS.ph.sendPacketToPlayers(packet);
 	}
 

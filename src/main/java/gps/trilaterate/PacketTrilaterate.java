@@ -26,7 +26,7 @@ public class PacketTrilaterate implements IMessage, IMessageHandler<PacketTrilat
 		}
 		//player clicked on name to set target.
 		GPS.trilaterate.setPlayer(stack, message.playerName);
-		player.sendMessage(ServerUtil.getChatForString(LocalizationHelper.localizeFormatted("gps:trilaterationswitched", message.playerName)));
+		player.sendMessage(ServerUtil.getChatForString(LocalizationHelper.localizeFormatted("gps:trilaterationswitched", ItemTrilaterate.getDisplayName(message.playerName))));
 		player.inventoryContainer.detectAndSendChanges();
 		
 		return null;

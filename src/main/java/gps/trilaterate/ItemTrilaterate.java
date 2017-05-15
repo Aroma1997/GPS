@@ -53,6 +53,7 @@ public class ItemTrilaterate extends AromicItem {
 		ItemStack stack = player.getHeldItem(hand);
 		//No GPS, no Trilateration.
 		if (!GPS.gps.isGPSEnabled(player)) {
+			
 			return new ActionResult<ItemStack>(EnumActionResult.FAIL, stack);
 		}
 		NBTTagCompound nbt;
@@ -73,13 +74,12 @@ public class ItemTrilaterate extends AromicItem {
 				list.readFromNBT(nbt);
 				Vec3i addingPos = getPositionFor(list.trackingPlayer, player);
 				if (addingPos == null) {
-					player.sendMessage(ServerUtil.getChatForString(LocalizationHelper.localize("gps:trilaterationaddingfailed")));
+					player.sendMessage(ServerUtil.getChatForString(Colors.RED + LocalizationHelper.localize("gps:trilaterationaddingfailed")));
 				} else {
 					list.addPoint(player.getPosition(), (int)Math.floor(Math.sqrt(addingPos.distanceSq(player.getPosition()))));
 					player.sendMessage(ServerUtil.getChatForString(LocalizationHelper.localize("gps:trilaterationadded")));
 					
 					nbt = list.writeToNBT(nbt);
-					player.sendMessage(ServerUtil.getChatForString("Now contains the following points: " + list));
 					stack.setTagCompound(nbt);
 					player.setHeldItem(hand, stack);
 				}
