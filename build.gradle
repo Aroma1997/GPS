@@ -51,6 +51,12 @@ dependencies {
 	compile 'info.journeymap:journeymap-api:1.10.2-1.3'
 }
 
+reobfJar {
+	//Relocate org.apache.commons.math3, because forge doesn't want to let us use it when it's not located
+	addExtraSrgLine "PK: org/apache/commons/math3 gps/org/apache/commons/math3"
+	addExtraSrgLine "PK: com/lemmingapex/trilateration gps/com/lemmingapex/trilateration"
+}
+
 processResources
 {
 	from(sourceSets.main.resources.srcDirs) {
