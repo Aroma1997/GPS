@@ -100,7 +100,7 @@ public class ClientProxy extends ServerProxy {
 				int y = 2;
 
 				for (PlayerData data : dataList) {
-					mc.fontRendererObj.drawStringWithShadow(data.username+": "+(data.dimension == mc.player.dimension ? Math.round(Math.sqrt(data.getDistance(mc.player.getPosition())))+"m" : "@ "+GPS.proxy.getDimensionName(data.dimension)), 2, y, 0x00FFFFFF);
+					mc.fontRendererObj.drawStringWithShadow(data.username+": "+(data.dimension == mc.player.dimension ? Math.round(data.getDistance(mc.player.getPosition()))+"m" : "@ "+GPS.proxy.getDimensionName(data.dimension)), 2, y, 0x00FFFFFF);
 					y += 10;
 					if (y + 35 >= h) {
 						//Complete screen is filled.
