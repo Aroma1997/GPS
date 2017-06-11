@@ -12,6 +12,7 @@ import aroma1997.core.item.AromicItemMulti;
 import aroma1997.core.util.LocalizationHelper;
 import aroma1997.core.util.ServerUtil;
 import gps.ItemGPS.Mode;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
@@ -46,7 +47,7 @@ public class ItemGPS extends AromicItemMulti<Mode> {
 	}
 
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer player, List info, boolean debug) {
+	public void addInformation(ItemStack stack, World world, List<String> info, ITooltipFlag flag) {
 		Mode m = getType(stack);
 		info.add(m.formatting + LocalizationHelper.localize(Reference.MOD_ID + ":gps.mode." + m.name()));
 	}

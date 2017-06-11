@@ -1,6 +1,6 @@
 [
 {
-  "modid": "GPS",
+  "modid": "gps",
   "name": "GPS",
   "description": "This is a small GPS mod. It adds a GPS to the game showing you the position of other players.",
   "mcversion": "${mcversion}",
