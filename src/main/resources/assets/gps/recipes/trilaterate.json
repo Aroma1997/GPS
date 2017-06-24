@@ -1,0 +1,30 @@
+{
+	"type": "aroma1997core:shaped_recipe",
+	"pattern": [
+		"RIR",
+		"PCP"
+	],
+	"key": {
+		"R": {
+			"type": "aroma1997core:stack",
+			"item": "minecraft:redstone"
+		},
+		"I": {
+			"type": "aroma1997core:stack",
+			"item": "minecraft:dye",
+			"data": 15
+		},
+		"P": {
+			"type": "aroma1997core:stack",
+			"item": "minecraft:paper"
+		},
+		"C": {
+			"type": "aroma1997core:stack",
+			"item": "minecraft:compass"
+		}
+	},
+	"result": {
+		"item": "gps:trilaterate",
+		"data": 0
+	}
+}

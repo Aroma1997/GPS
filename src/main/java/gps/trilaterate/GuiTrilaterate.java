@@ -9,9 +9,11 @@ import aroma1997.core.util.LocalizationHelper;
 import gps.ClientProxy;
 import gps.GPS;
 import gps.PlayerData;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -31,7 +33,7 @@ public class GuiTrilaterate extends GuiScreen {
     		players.add(data.username);
     	}
     	
-    	for (String additional : GPS.trilaterate.additionalPositions.keySet()) {
+    	for (String additional : ItemTrilaterate.additionalPositions.keySet()) {
     		players.add(additional);
     	}
     	

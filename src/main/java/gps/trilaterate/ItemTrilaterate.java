@@ -7,18 +7,17 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
-import org.apache.commons.math3.fitting.leastsquares.LeastSquaresOptimizer.Optimum;
-import org.apache.commons.math3.fitting.leastsquares.LevenbergMarquardtOptimizer;
-
-import com.lemmingapex.trilateration.NonLinearLeastSquaresSolver;
-import com.lemmingapex.trilateration.TrilaterationFunction;
-
 import aroma1997.core.client.util.Colors;
 import aroma1997.core.item.AromicItem;
 import aroma1997.core.util.LocalizationHelper;
 import aroma1997.core.util.ServerUtil;
+import com.lemmingapex.trilateration.NonLinearLeastSquaresSolver;
+import com.lemmingapex.trilateration.TrilaterationFunction;
 import gps.GPS;
 import gps.Reference;
+import org.apache.commons.math3.fitting.leastsquares.LeastSquaresOptimizer.Optimum;
+import org.apache.commons.math3.fitting.leastsquares.LevenbergMarquardtOptimizer;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -29,6 +28,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.Tuple;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
+
 import net.minecraftforge.common.util.Constants.NBT;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 
@@ -222,7 +222,7 @@ public class ItemTrilaterate extends AromicItem {
 				NBTTagCompound current = list.getCompoundTagAt(i);
 				Vec3i pos = new Vec3i(current.getInteger("x"), current.getInteger("y"), current.getInteger("z"));
 				int distance = current.getInteger("distance");
-				points.add(new Tuple(pos, distance));
+				points.add(new Tuple<>(pos, distance));
 			}
 		}
 		

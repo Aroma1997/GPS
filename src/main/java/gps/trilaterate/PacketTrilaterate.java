@@ -5,9 +5,11 @@ import aroma1997.core.util.LocalizationHelper;
 import aroma1997.core.util.ServerUtil;
 import gps.GPS;
 import io.netty.buffer.ByteBuf;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.NetHandlerPlayServer;
+
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
@@ -19,7 +21,7 @@ public class PacketTrilaterate implements IMessage, IMessageHandler<PacketTrilat
 	@Override
 	public IMessage onMessage(PacketTrilaterate message, MessageContext ctx) {
 		NetHandlerPlayServer netHandler = ctx.getServerHandler();
-		EntityPlayer player = netHandler.playerEntity;
+		EntityPlayer player = netHandler.player;
 		ItemStack stack = GPS.trilaterate.getCurrentTrilaterationItem(player);
 		if (stack.isEmpty() || message.playerName == null) {
 			return null;

@@ -10,11 +10,10 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import aroma1997.core.util.LocalizationHelper;
+import gps.trilaterate.GuiTrilaterate;
 import org.lwjgl.input.Keyboard;
 
-import aroma1997.core.util.LocalizationHelper;
-import gps.ItemGPS.Mode;
-import gps.trilaterate.GuiTrilaterate;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.ScaledResolution;
@@ -26,6 +25,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
@@ -88,19 +88,17 @@ public class ClientProxy extends ServerProxy {
 		if (event.phase == Phase.END) {
 			if (mc.player == null) return;
 
-			ItemStack selected = mc.player.getHeldItemMainhand();
-			Mode mode = GPS.gps.getType(selected);
 			if ((!displaying || !(GPS.gps.isGPSEnabled(mc.player))) || !mc.inGameHasFocus || mc.world == null || mc.gameSettings.showDebugInfo || (mc.gameSettings.keyBindPlayerList.isKeyDown() && (!mc.isIntegratedServerRunning() || mc.player.connection.getPlayerInfoMap().size() > 1))) return;
 
 			int h = new ScaledResolution(mc).getScaledHeight();
 
 			if (dataList.isEmpty()) {
-				mc.fontRendererObj.drawStringWithShadow(LocalizationHelper.localize("gps:gps.hud.noplayers"), 2, 2, 0x00FFFFFF);
+				mc.fontRenderer.drawStringWithShadow(LocalizationHelper.localize("gps:gps.hud.noplayers"), 2, 2, 0x00FFFFFF);
 			} else {
 				int y = 2;
 
 				for (PlayerData data : dataList) {
-					mc.fontRendererObj.drawStringWithShadow(data.username+": "+(data.dimension == mc.player.dimension ? Math.round(data.getDistance(mc.player.getPosition()))+"m" : "@ "+GPS.proxy.getDimensionName(data.dimension)), 2, y, 0x00FFFFFF);
+					mc.fontRenderer.drawStringWithShadow(data.username+": "+(data.dimension == mc.player.dimension ? Math.round(data.getDistance(mc.player.getPosition()))+"m" : "@ "+GPS.proxy.getDimensionName(data.dimension)), 2, y, 0x00FFFFFF);
 					y += 10;
 					if (y + 35 >= h) {
 						//Complete screen is filled.
@@ -127,11 +125,11 @@ public class ClientProxy extends ServerProxy {
 			String s;
 			if (mc.world.provider.isSurfaceWorld()) s = String.format("%2d", hour).replace(' ', '0')+":"+String.format("%2d", (int)Math.floor((time / 16.66666666666667D) % 60)).replace(' ', '0')+(ampm ? (time >= 12000 ? "pm" : "am") : "");
 			else s = "No time";
-			mc.fontRendererObj.drawStringWithShadow(s, 19, h - 14, 0x00FFFFFF);
+			mc.fontRenderer.drawStringWithShadow(s, 19, h - 14, 0x00FFFFFF);
 
 			BlockPos spawn = mc.world.getSpawnPoint();
 			s = Math.round(Math.sqrt(mc.player.getDistanceSq(spawn)))+"m";
-			mc.fontRendererObj.drawStringWithShadow(s, 19, h - 30, 0x00FFFFFF);
+			mc.fontRenderer.drawStringWithShadow(s, 19, h - 30, 0x00FFFFFF);
 		}
 	}
 
