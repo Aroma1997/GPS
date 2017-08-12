@@ -36,16 +36,19 @@ public class ItemTrilaterate extends AromicItem {
 	
 	static final Map<String, Function<EntityPlayer, ? extends Vec3i>> additionalPositions = new HashMap<>();
 	
-	public BiConsumer<EntityPlayer, Tuple<Vec3i, String>> finishedSetting = this::printTrilaterationResult;
-	
-	public ItemTrilaterate() {
-		setUnlocalizedName(Reference.MOD_ID.toLowerCase() + ":gps");
-		setMaxStackSize(1);
-		setCreativeTab(GPS.tabGPS);
-		
+	static {
+
 		//Names need to start with a "_"
 		additionalPositions.put("_worldspawn", player -> player.world.getSpawnPoint());
 		additionalPositions.put("_playerspawn", player -> player.getBedLocation() == null ? player.world.getSpawnPoint() : player.getBedLocation());
+	}
+	
+	public BiConsumer<EntityPlayer, Tuple<Vec3i, String>> finishedSetting = this::printTrilaterationResult;
+	
+	public ItemTrilaterate() {
+		setUnlocalizedName(Reference.MOD_ID.toLowerCase() + ":trilaterate");
+		setMaxStackSize(1);
+		setCreativeTab(GPS.tabGPS);
 	}
 	
 	@Override
