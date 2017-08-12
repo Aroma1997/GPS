@@ -7,6 +7,8 @@ item.gps:gps.idle.name=GPS
 item.gps:gps.on.name=GPS
 item.gps:gps.supercharged.name=GPS
 
+item.gps:trilaterate.name=Trilateration Tool
+
 gps:gps.mode.off=OFF
 gps:gps.mode.idle=IDLE
 gps:gps.mode.on=ON
