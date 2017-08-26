@@ -10,6 +10,11 @@ buildscript {
 		classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
 	}
 }
+
+plugins {
+	id "com.matthewprenger.cursegradle" version "1.0.9"
+}
+
 apply plugin: 'net.minecraftforge.gradle.forge'
 
 ext.configFile = file "build.properties"
@@ -94,4 +99,18 @@ task deobfJar(type: Jar) {
 
 artifacts {
 	archives deobfJar
+}
+
+curseforge {
+	apiKey = project.hasProperty('curseforge_apikey') ? project.curseforge_apikey : '0'
+	project {
+		id = config.curse_project_id
+		changelog = "N/A"
+		changelogType = 'html'
+		releaseType = version.contains('b') ? 'beta' : 'release'
+		addArtifact deobfJar
+		relations {
+			requiredLibrary 'aroma1997core'
+		}
+	}
 }
