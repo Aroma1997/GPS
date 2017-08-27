@@ -48,12 +48,22 @@ minecraft {
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
+repositories {
+	maven {
+		name = "aroma"
+		url = "https://files.aroma1997.org/maven/"
+	}
+}
+
 dependencies {
 	//required for trilateration
 	shade 'com.lemmingapex.trilateration:trilateration:1.0.2'
 	
 	//required for trilateration plugin
 	compile 'info.journeymap:journeymap-api:1.10.2-1.3'
+	
+	//core
+	compile "aroma1997.core:Aroma1997Core-${config.mc_version}:+:deobf"
 }
 
 reobfJar {
