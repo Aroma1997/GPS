@@ -51,7 +51,7 @@ targetCompatibility = JavaVersion.VERSION_1_8
 repositories {
 	maven {
 		name = "aroma"
-		url = "https://files.aroma1997.org/maven/"
+		url = "http://files.aroma1997.org/maven/"
 	}
 }
 
