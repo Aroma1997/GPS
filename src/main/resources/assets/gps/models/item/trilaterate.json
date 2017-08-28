@@ -1,6 +1,6 @@
 {
-	"parent": "item/generated",
-	"textures": {
-		"layer0": "gps:items/trilaterate"
+	"parent" : "item/generated",
+	"textures" : {
+		"layer0" : "gps:items/trilaterate"
 	}
 }

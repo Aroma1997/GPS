@@ -1,16 +1,11 @@
 /**
  * The code of the GPS mod and all related materials like textures is licensed under the
  * GNU GENERAL PUBLIC LICENSE Version 3.
- *
+ * <p>
  * See https://github.com/Aroma1997/GPS/blob/master/license.txt for more information.
  */
 package gps;
 
-import aroma1997.core.item.AromicCreativeTab;
-import aroma1997.core.network.NetworkHelper;
-import aroma1997.core.network.PacketHandler;
-import aroma1997.core.util.AromaRegistry;
-import aroma1997.core.util.registry.AutoRegister;
 import gps.trilaterate.ItemTrilaterate;
 import gps.trilaterate.PacketTrilaterate;
 
@@ -28,12 +23,18 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 
+import aroma1997.core.item.AromicCreativeTab;
+import aroma1997.core.network.NetworkHelper;
+import aroma1997.core.network.PacketHandler;
+import aroma1997.core.util.AromaRegistry;
+import aroma1997.core.util.registry.AutoRegister;
+
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, dependencies = "required-after:aroma1997core")
 public class GPS {
-	
+
 	@Instance
 	public static GPS instance;
-	
+
 	@SidedProxy(clientSide = "gps.ClientProxy", serverSide = "gps.ServerProxy")
 	public static ServerProxy proxy;
 
@@ -58,7 +59,9 @@ public class GPS {
 		prop = config.get(Configuration.CATEGORY_GENERAL, "updatesPerTick", updatesPerTick);
 		prop.setComment("Number of updates per tick to send, or for negative values, update interval in ticks. Each update sends a single packet to a player.");
 		updatesPerTick = prop.getInt();
-		if (updatesPerTick <= 0) updatesPerTick = 1;
+		if (updatesPerTick <= 0) {
+			updatesPerTick = 1;
+		}
 
 		gps = new ItemGPS();
 		trilaterate = new ItemTrilaterate();
@@ -66,7 +69,7 @@ public class GPS {
 
 		config.save();
 	}
-	
+
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, proxy);

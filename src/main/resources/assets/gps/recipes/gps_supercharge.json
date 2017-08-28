@@ -1,19 +1,18 @@
 {
-	"type": "aroma1997core:shapeless_recipe",
-	"ingredients": [
+	"type" : "aroma1997core:shapeless_recipe",
+	"ingredients" : [
 		{
-			"type": "aroma1997core:stack",
-			"item": "gps:gps",
-			"data": 32767
+			"type" : "aroma1997core:stack",
+			"item" : "gps:gps",
+			"data" : 32767
 		},
 		{
-			"type": "aroma1997core:stack",
-			"item": "minecraft:redstone"
+			"type" : "aroma1997core:stack",
+			"item" : "minecraft:redstone"
 		}
-		
 	],
-	"result": {
-		"item": "gps:gps",
-		"data": 3
+	"result" : {
+		"item" : "gps:gps",
+		"data" : 3
 	}
 }

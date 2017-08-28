@@ -1,7 +1,7 @@
 /**
  * The code of the GPS mod and all related materials like textures is licensed under the
  * GNU GENERAL PUBLIC LICENSE Version 3.
- *
+ * <p>
  * See https://github.com/Aroma1997/GPS/blob/master/license.txt for more information.
  */
 package gps;
@@ -11,7 +11,6 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import aroma1997.core.log.LogHelper;
 import io.netty.buffer.ByteBuf;
 import org.apache.logging.log4j.Level;
 
@@ -24,21 +23,25 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 
+import aroma1997.core.log.LogHelper;
+
 public class GpsPacket implements IMessage,
 		IMessageHandler<GpsPacket, IMessage> {
 
 	public GpsPacket(EntityPlayer target, MinecraftServer server) {
-		dataList = new LinkedList<PlayerData>();
+		dataList = new LinkedList<>();
 //		dataList.add(new PlayerData("Origin", 0, BlockPos.ORIGIN));
 		for (EntityPlayer player : server.getPlayerList().getPlayers()) {
-			if (player == target) continue;
+			if (player == target) {
+				continue;
+			}
 			if (GPS.gps.shouldShowOnGPS(target, player)) {
 				dataList.add(new PlayerData(player.getDisplayNameString(), player.world.provider.getDimension(), player.getPosition()));
 			}
 		}
 	}
 
-	public GpsPacket(){};
+	public GpsPacket() {}
 
 	List<PlayerData> dataList;
 
@@ -49,8 +52,7 @@ public class GpsPacket implements IMessage,
 			List<PlayerData> data = message.dataList;
 			Collections.sort(data, proxy.playerDatComparator);
 			proxy.dataList = data;
-		}
-		else {
+		} else {
 			LogHelper.log(Level.ERROR, "Received GPS message on the server. Aborting.");
 		}
 		return null;
@@ -59,7 +61,7 @@ public class GpsPacket implements IMessage,
 	@Override
 	public void fromBytes(ByteBuf buf) {
 		int size = buf.readUnsignedByte();
-		dataList = new ArrayList<PlayerData>(size);
+		dataList = new ArrayList<>(size);
 		for (int i = 0; i < size; i++) {
 			dataList.add(readPlayerData(buf));
 		}
@@ -68,7 +70,7 @@ public class GpsPacket implements IMessage,
 	@Override
 	public void toBytes(ByteBuf buf) {
 		buf.writeByte(dataList.size());
-		for (PlayerData  data : dataList) {
+		for (PlayerData data : dataList) {
 			writePlayerData(data, buf);
 		}
 	}

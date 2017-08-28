@@ -1,7 +1,7 @@
 /**
  * The code of the GPS mod and all related materials like textures is licensed under the
  * GNU GENERAL PUBLIC LICENSE Version 3.
- *
+ * <p>
  * See https://github.com/Aroma1997/GPS/blob/master/license.txt for more information.
  */
 package gps;
@@ -20,7 +20,7 @@ public class PlayerData {
 		this.dimension = dimension;
 		this.pos = pos;
 	}
-	
+
 	public double getDistance(Vec3i other) {
 		return Math.sqrt(pos.distanceSq(other));
 	}

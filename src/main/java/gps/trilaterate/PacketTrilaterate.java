@@ -1,8 +1,5 @@
 package gps.trilaterate;
 
-import aroma1997.core.network.NetworkHelper;
-import aroma1997.core.util.LocalizationHelper;
-import aroma1997.core.util.ServerUtil;
 import gps.GPS;
 import io.netty.buffer.ByteBuf;
 
@@ -14,8 +11,12 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
+import aroma1997.core.network.NetworkHelper;
+import aroma1997.core.util.LocalizationHelper;
+import aroma1997.core.util.ServerUtil;
+
 public class PacketTrilaterate implements IMessage, IMessageHandler<PacketTrilaterate, IMessage> {
-	
+
 	String playerName;
 
 	@Override
@@ -30,7 +31,7 @@ public class PacketTrilaterate implements IMessage, IMessageHandler<PacketTrilat
 		GPS.trilaterate.setPlayer(stack, message.playerName);
 		player.sendMessage(ServerUtil.getChatForString(LocalizationHelper.localizeFormatted("gps:trilaterationswitched", ItemTrilaterate.getDisplayName(message.playerName))));
 		player.inventoryContainer.detectAndSendChanges();
-		
+
 		return null;
 	}
 
