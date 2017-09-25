@@ -86,8 +86,6 @@ public class ClientProxy extends ServerProxy {
 		if (event.phase == Phase.END) {
 			if (mc.thePlayer == null) return;
 
-			ItemStack selected = mc.thePlayer.getHeldItemMainhand();
-			Mode mode = GPS.gps.getType(selected);
 			if ((!displaying || !(GPS.gps.isGPSEnabled(mc.thePlayer))) || !mc.inGameHasFocus || mc.theWorld == null || mc.gameSettings.showDebugInfo || (mc.gameSettings.keyBindPlayerList.isKeyDown() && (!mc.isIntegratedServerRunning() || mc.thePlayer.connection.getPlayerInfoMap().size() > 1))) return;
 
 			int h = new ScaledResolution(mc).getScaledHeight();
