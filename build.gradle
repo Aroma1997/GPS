@@ -122,6 +122,10 @@ curseforge {
 		relations {
 			requiredLibrary 'aroma1997core'
 		}
+		getAvailableMinecraftVersions().each { ver -> addGameVersion ver }
+	}
+}
+
 task signJar(dependsOn: ['deobfJar', 'jar']){
 	doLast {
 		// Skip the task if our secret data isn't available
@@ -140,4 +144,11 @@ task signJar(dependsOn: ['deobfJar', 'jar']){
 	}
 }
 build.dependsOn signJar
+
+def getAvailableMinecraftVersions() {
+	if (!config.availableMcVersions) {
+		return [ config.mc_version ]
+	} else {
+		return config.availableMcVersions.split(',')
+	}
 }
