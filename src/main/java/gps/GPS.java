@@ -8,6 +8,7 @@ package gps;
 
 import gps.trilaterate.ItemTrilaterate;
 import gps.trilaterate.PacketTrilaterate;
+import org.apache.logging.log4j.Level;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
@@ -18,18 +19,20 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLFingerprintViolationEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 
 import aroma1997.core.item.AromicCreativeTab;
+import aroma1997.core.log.LogHelper;
 import aroma1997.core.network.NetworkHelper;
 import aroma1997.core.network.PacketHandler;
 import aroma1997.core.util.AromaRegistry;
 import aroma1997.core.util.registry.AutoRegister;
 
-@Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, dependencies = "required-after:aroma1997core")
+@Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, dependencies = "required-after:aroma1997core", certificateFingerprint = "dfbfe4c473253d8c5652417689848f650b2cbe32")
 public class GPS {
 
 	@Instance
@@ -73,5 +76,12 @@ public class GPS {
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, proxy);
+	}
+
+	@EventHandler
+	public void onFingerprintViolation(FMLFingerprintViolationEvent event) {
+		LogHelper.log(Level.WARN, "Invalid fingerprint detected! The version of the mod is most likely modified and an inofficial release.");
+		LogHelper.log(Level.WARN, "Use with caution.");
+
 	}
 }
