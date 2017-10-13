@@ -70,6 +70,10 @@ reobfJar {
 	//Relocate org.apache.commons.math3, because forge doesn't want to let us use it when it's not located
 	addExtraSrgLine "PK: org/apache/commons/math3 gps/org/apache/commons/math3"
 	addExtraSrgLine "PK: com/lemmingapex/trilateration gps/com/lemmingapex/trilateration"
+	
+	//Instead of setting the accepted mc version to the one we're compiling against, we're setting it to the first one (lowest one) we accept.
+	//Forge does the fuzzy detection then.
+	getPreTransformers().add(0, new net.minecraftforge.gradle.user.patcherUser.forge.McVersionTransformer(getAvailableMinecraftVersions()[0]))
 }
 
 processResources
