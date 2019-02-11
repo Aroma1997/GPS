@@ -11,6 +11,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.management.PlayerList;
 import net.minecraft.world.DimensionType;
+import net.minecraft.world.GameType;
 import net.minecraft.world.World;
 
 import net.minecraftforge.common.DimensionManager;
@@ -52,7 +53,7 @@ public class ServerProxy implements IGuiHandler {
 				}
 
 				EntityPlayerMP player = null;
-				while (player == null || !GPS.gps.isGPSEnabled(player)) {
+				while (player == null || !GPS.gps.isGPSEnabled(player) || player.interactionManager.getGameType() == GameType.SPECTATOR) {
 					currentPlayer++;
 					if (currentPlayer >= manager.getCurrentPlayerCount()) {
 						currentPlayer = -1;
